@@ -271,3 +271,51 @@
 (check-eq? (o/ 10 4) 2)
 (check-eq? (o/ 15 2) 7)
 
+(define length
+  (lambda (lat)
+    (cond
+      ((null? lat) 0)
+      (else (add1 (length (cdr lat)))))))
+
+(check-eq? (length '(1 2 3 4 5)) 5)
+(check-eq? (length '(5 5 5)) 3)
+
+(define pick
+  (lambda (n lat)
+    (cond
+      ((zero? (sub1 n)) (car lat))
+      (else (pick (sub1 n) (cdr lat))))))
+
+(check-equal? (pick 1 '(sea food)) 'sea)
+(check-equal? (pick 3 '(hot dogs with mustard)) 'with)
+
+(define remove-pick
+  (lambda (n lat)
+    (cond
+      ((zero? (sub1 n)) (cdr lat))
+      (else (cons (car lat)
+                  (remove-pick (sub1 n)
+                               (cdr lat)))))))
+
+(check-equal? (remove-pick 3 '(hotdogs with hot mustard)) '(hotdogs with mustard))
+
+
+(define no-nums
+  (lambda (lat)
+    (cond
+      ((null? lat) '())
+      ((number? (car lat)) (no-nums (cdr lat)))
+      (else (cons (car lat)
+                  (no-nums (cdr lat)))))))
+
+(check-equal? (no-nums '(5 pears 6 prunes 9 dates)) '(pears prunes dates))
+
+(define all-nums
+  (lambda (lat)
+    (cond
+      ((null? lat) '())
+      ((number? (car lat)) (cons (car lat)
+                                 (all-nums (cdr lat))))
+      (else (all-nums (cdr lat))))))
+
+(check-equal? (all-nums '(5 pears 6 prunes 9 dates)) '(5 6 9))
