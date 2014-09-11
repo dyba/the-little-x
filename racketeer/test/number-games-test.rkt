@@ -65,4 +65,27 @@
   (check-equal? (no-nums '(5 pears 6 prunes 9 dates)) '(pears prunes dates))
 
   ;; all-nums
-  (check-equal? (all-nums '(5 pears 6 prunes 9 dates)) '(5 6 9)))
+  (check-equal? (all-nums '(5 pears 6 prunes 9 dates)) '(5 6 9))
+  
+  ;; eqan?
+  (check-eq? (eqan? 1 1) true)
+  (check-eq? (eqan? 1 2) false)
+  (check-eq? (eqan? 1 'hello) false)
+  (check-eq? (eqan? 'hello 'hello) true)
+  (check-eq? (eqan? '() '()) true)
+  (check-eq? (eqan? '(1 2 3) '(4 5 6)) false)
+  (check-eq? (eqan? '(1 2 3) '(1 2 3)) true)
+  
+  ;; occur
+  (check-eq? (occur 1 '(1 2 3)) 1)
+  (check-eq? (occur 'hello '(this is my hello)) 1)
+  (check-eq? (occur 'day '(another first day to day)) 2)
+  
+  ;; one?
+  (check-eq? (one? 1) true)
+  (check-eq? (one? 2) false)
+  (check-eq? (one? 0) false)
+  
+  ;; remove-pick
+  (check-equal? (remove-pick-v2 1 '(once upon a midnight dreary)) '(upon a midnight dreary))
+  (check-equal? (remove-pick-v2 3 '(when I pondered weak and weary)) '(when I weak and weary)))

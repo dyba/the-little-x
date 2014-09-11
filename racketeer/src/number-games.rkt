@@ -110,4 +110,30 @@
         ((null? lat) '())
         ((number? (car lat)) (cons (car lat)
                                    (all-nums (cdr lat))))
-        (else (all-nums (cdr lat)))))))
+        (else (all-nums (cdr lat))))))
+  
+  (define eqan?
+    (lambda (a1 a2)
+      (cond
+        ((and (number? a1) (number? a2)) (o= a1 a2))
+        ((or (number? a1) (number? a2)) false)
+        (else (equal? a1 a2)))))
+  
+  (define occur
+    (lambda (a lst)
+      (cond
+        ((null? lst) 0)
+        ((eq? a (car lst)) (add1 (occur a (cdr lst))))
+        (else (occur a (cdr lst))))))
+  
+  (define one?
+    (lambda (n)
+      (o= n 1)))
+  
+  (define remove-pick-v2
+    (lambda (n lat)
+      (cond
+        ((one? n) (cdr lat))
+        (else (cons (car lat)
+                    (remove-pick-v2 (sub1 n)
+                                    (cdr lat))))))))
